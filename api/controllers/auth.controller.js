@@ -36,10 +36,15 @@ export const signup = async (req, res, next) => {
 export const signin = async (req, res, next) => {
   const { email, password } = req.body;
 
+  console.log("email", email);
+  console.log("password", password)
+
   if (!email || !password || email === "" || password === "") {
     next(errorHandler(400, "All fields are required "));
-
+  }
     try {
+    console.log("/auth/signin")
+
       const validUser = await User.findOne({ email });
       if (!validUser) {
         next(errorHandler(400, "User not found"));
@@ -61,5 +66,5 @@ export const signin = async (req, res, next) => {
     } catch (error) {
       next(error);
     }
-  }
+  
 };
